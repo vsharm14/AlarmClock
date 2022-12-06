@@ -4,11 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document1</title>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    
+<div id ="app">
+    <div class="header">
+        <h1>Alarm Clock</h1>
+        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+    </div>
+    <div class="alarmClock">
+      <div id="clockBody">
+        <div>
+            Current Time : 
+        </div>
+        <div id ="time">
+            <div id="hours">
+                00
+            </div>
+            <div>
+              :  
+            </div>
+            <div id="mins">
+                00
+            </div>
+        </div>
+        <div id="clockSetter">
+            <div>
+                <div class="setterBtn">
+                   <button type="button" id ="hourIncriment">
+                    +
+                   </button>
+                </div>
+                <div class="setterBtn">
+                    <button type="button"  id ="hourDecriment">
+                        -
+                       </button>
+                </div>
+            </div>
+            <div>
+                <div class="setterBtn">
+                    <button type="button" id ="minuteIncriment" >
+                        +
+                       </button>
+                </div>
+                <div class="setterBtn">
+                    <button type="button" id ="minuteDecriment">
+                        -
+                       </button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div id="alarmSetter">
+        <button type="submit" id="setAlarm">
+            <h3>Set Alarm
+            </h3></button>
+      </div>
+    </div>
+    <div class="alarms">
+        <h3>Your Alarms For Today</h3>
+        <div id="alarmListToday">
+
+        </div>
+        <!-- <ul id="alarmsList">
+        </ul> -->
+    </div>
+</div>
+<i class="fa-solid fa-trash"></i>
 <script  src="app.js">
 </script>
 </body>

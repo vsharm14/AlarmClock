@@ -1,3 +1,115 @@
+
 body{
-    background-color : blue;
+    background-color : grey;
+}
+
+#app{
+    display: grid;
+    grid-template-rows: 1fr;
+    margin:20vh 50vh;
+}
+#app div{
+    width : 100%;
+    box-sizing: border-box;
+}
+.header{
+    height : 10vh;
+    background-color: beige;
+    text-align: center;
+}
+.alarmClock{
+    height : 15vh;
+    background-color: ghostwhite;
+    display: grid;
+    grid-template-rows : 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px
+}
+.alarms{
+    height : 35vh;
+    background-color: beige;
+}
+
+#clockBody {
+    background-color: black;
+    border : 4px solid black;
+    border-radius: 10px;
+    max-width : 150px;
+    min-width : 100px;
+    margin-right: 5px;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-columns: 1fr;
+    color: antiquewhite;
+}
+
+#setAlarm{
+    padding : 20px;
+    align-content: center;
+    text-align: center;
+    background-color: red;
+    color: azure;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 80%;
+}
+
+#setAlarm:hover{
+    background-color: brown;
+    color:white;
+}
+
+#alarmSetter{
+    align-items: center;
+    align-content: center;
+}
+
+#clockSetter{
+    display: grid;
+     box-sizing: border-box;
+     grid-template-columns: 1fr 1fr;
+     color: aliceblue;
+     box-sizing: content-box;
+}
+#clockSetter div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 4px;
+}
+#time{
+    background-color: azure;
+    border : 1px solid black;
+}
+.setterBtn{
+    margin-top: 1px;
+}
+
+#time{
+    display: grid;
+    grid-template-columns: 5fr 1fr 5fr;
+    color: black;
+    font-size : 35px;
+    font-weight: 500;
+}
+#time div{
+    padding: 0px;
+    margin-right: 0px;
+}
+#hours{
+    text-align: right;
+
+}
+
+ul{
+    list-style: none;
+}
+ul li {
+    background-color: antiquewhite;
+    margin : 4px;
+    text-align: left;
+    text-decoration: violet;
+}
+
+.deleteBtn:hover{
+    background-color: red;
 }
