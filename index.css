@@ -6,7 +6,10 @@ body{
 #app{
     display: grid;
     grid-template-rows: 1fr;
-    margin:20vh 50vh;
+    margin:2vh 40vh;
+    border: 2px solid cornsilk;
+    border-radius: 20px;
+    padding: 10px;
 }
 #app div{
     width : 100%;
@@ -26,7 +29,8 @@ body{
     padding: 10px
 }
 .alarms{
-    height : 35vh;
+    text-align: center;
+    height : 50vh;
     background-color: beige;
 }
 
@@ -112,4 +116,31 @@ ul li {
 
 .deleteBtn:hover{
     background-color: red;
+}
+.deactivate{
+    display: none;
+}
+
+.activate{
+    display: inline;
+    margin-left: 10px;
+}
+
+.alarmActive{
+    background-color: goldenrod;
+    transition: all 2s;
+    width : 110%;
+}
+
+li{
+    width : 80%;
+    height : 30px;
+    padding : 5px;
+    padding-left: 4px;
+    margin-left :0px;}
+
+.deleteBtn{
+    height: 30px;
+    width: 30px;
+    margin-right: 0px;
 }

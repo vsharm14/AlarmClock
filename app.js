@@ -6,24 +6,29 @@ let minuteIncrimentBtn = document.getElementById("minuteIncriment");
 let minuteDecrimentBtn = document.getElementById("minuteDecriment");
 let setAlarm = document.getElementById("setAlarm");
 let alarmListToday = document.getElementById("alarmListToday");
-
-console.log("hours are ",hourDigit.innerText);
-
+let alarmsSet = false;
+let myAudio = document.getElementById("myAudio");
+let clock= document.getElementById("clock");
+let snooze = false;
 hourIncrimentBtn.addEventListener('click',incriment);
 hourDecrimentBtn.addEventListener('click',decriment);
 minuteIncrimentBtn.addEventListener('click',incriment);
 minuteDecrimentBtn.addEventListener('click',decriment);
 setAlarm.addEventListener('click',addAlarm);
 
+setInterval(showCurrentTime,1000);
+
+function showCurrentTime(){
+    let date = new Date();
+    clock.innerText ='';
+    clock.innerText = `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
+}
+
 function incriment(event){
-    console.log('event is ', event.target.id);
 
     if(event.target.id == 'hourIncriment' && hourDigit.innerText < 23 ){
-        console.log(hourDigit);
         hourDigit.innerText = ++hourDigit.innerText;
-        console.log(hourDigit);
     }
-
     else if(event.target.id == 'minuteIncriment' && minDigit.innerText < 59 ){
         minDigit.innerText = ++minDigit.innerText;
     }
@@ -43,7 +48,6 @@ function decriment(event){
 }
 
 let alarmList = [];
-
 class Alarm {
     constructor(hours,mins){
         this.hours = hours;
@@ -59,19 +63,57 @@ class Alarm {
 
 
 function addAlarm(){
-    let hours = hourDigit.innerText;
-    let mins = minDigit.innerText;
-    console.log(hours,mins);
-    if(hours > 0 || mins > 0){
+    let date = new Date();
+    let currentHour = date.getHours();
+    let currentMin = date.getMinutes();
+    let hour = 0;
+    let min = 0;
+    let timeLeft = 0;
+    if (snooze){
+        if (currentMin >= 55){
+            min = 5 - (60 %currentMin);
+            hour = currentHour + 1;
+        }else{
+            min = currentMin + 5;
+            hour = currentHour;
+        }
+        let alarm = new Alarm(hour,min);
+        alarmList.push(alarm);
+        alert(`Alarm is set for ${alarm.hour} : ${alarm.min}`);
+        timeLeft = 300000;
+        snooze = false;
+    }
+    else{
+     hours = hourDigit.innerText;
+     mins = minDigit.innerText;
+
+     if(hours > 0 || mins > 0){
         let alarm = new Alarm(hours,mins);
         alarmList.push(alarm);
-        console.log(alarm.hour);
+        currentHour = date.getHours() - (+alarm.hour);
+        currentMin = date.getMinutes() - (+alarm.min);
         alert(`Alarm is set for ${alarm.hour} : ${alarm.min}`);
-        renderAlarmList();
-        initializeAlarmSetter();
+        timeLeft = (currentHour*60 - currentMin) * 60 * 1000;
     }else{
         alert ("Please provide time to set alarm");
     }
+}
+setTimeout(function (id){
+    return function(){
+     let currentAlarmId = "alarm_" + id;
+     let snoozeBtnId = "snoozeBtn_" + id;
+     let currentAlarm = document.getElementById(currentAlarmId);
+     let snoozeBtn = document.getElementById(snoozeBtnId);
+     currentAlarm.classList.remove("deactivate");
+     currentAlarm.style.width = 90 + "%";
+     snoozeBtn.classList.add("activate");
+     snoozeBtn.classList.add("snoozeBtn");
+     currentAlarm.classList.add("alarmActive");
+     myAudio.play();
+    }
+ }(alarmList.length),timeLeft);
+ renderAlarmList();
+ initializeAlarmSetter();
 }
 
 function initializeAlarmSetter(){
@@ -82,23 +124,48 @@ function initializeAlarmSetter(){
 function renderAlarmList(){
         alarmListToday.innerHTML ='';
         let alarmsList = document.createElement('ul');
+        alarmsList.setAttribute("id","list");
         alarmListToday.appendChild(alarmsList);
         alarmList.forEach(function(alarm){
-        console.log(alarm.hour);
         let li = document.createElement("li");
         let children = alarmsList.children.length + 1;
-        li.setAttribute("id",children);
+        li.setAttribute("id","alarm_"+children);
         let time = (`Alarm Time is ${alarm.hour} : ${alarm.min}`);
-        li.innerHTML = time + '&nbsp' + '&nbsp' + '<button class="deleteBtn" onclick="deleteAlarm(id)" id="children"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+        let btn = document.createElement('button');
+        btn.setAttribute("class","deleteBtn");
+        btn.setAttribute("id","delBtn_"+children);
+        alarm.id = "alarm_"+children;
+        btn.className = "deleteBtn";
+        btn.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+        let snoozeBtn = document.createElement('button');
+        snoozeBtn.setAttribute("class","deactivate");
+        snoozeBtn.setAttribute("id","snoozeBtn_"+children);
+        snoozeBtn.innerHTML = 'Snooze';
+        li.innerHTML = time + '&nbsp' + '&nbsp';
+        li.appendChild(btn);
+        li.appendChild(snoozeBtn);
         alarmsList.appendChild(li);
+        alarmsSet = true;
     })
 }
 
 
-let deleteBtn = document.getElementsByClassName("deleteBtn");
 
-deleteBtn.addEventListener('click',deleteAlarm);
 
-function deleteAlarm(id){
-    console.log(id);
+
+document.body.addEventListener('click',function(evt){
+    if(evt.target.className =='deleteBtn' || evt.target.className == 'fa fa-trash-o'){
+    let idArray = evt.composedPath()[1].id.split("_");
+    let index =  +evt.composedPath()[1].id -1;
+    alarmList.splice(index,1);
+    renderAlarmList();
 }
+if(evt.target.className.includes("snoozeBtn")){
+    let idArray = evt.composedPath()[1].id.split("_");
+    let index =  +evt.composedPath()[1].id -1;
+    alarmList.splice(index,1);
+    snooze = true;
+    addAlarm();
+    renderAlarmList();
+}
+});
