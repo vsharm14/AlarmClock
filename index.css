@@ -1,4 +1,4 @@
-
+/*Follwing are the styles for alarm clock application*/
 body{
     background-color : grey;
 }
@@ -117,10 +117,15 @@ ul li {
 .deleteBtn:hover{
     background-color: red;
 }
+
+/*deactivate snooze button*/
+
 .deactivate{
     display: none;
 }
 
+
+/*activate snooze button*/
 .activate{
     display: inline;
     margin-left: 10px;

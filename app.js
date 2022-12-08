@@ -1,3 +1,4 @@
+//Following are the handlers for different elements and event handler
 let hourDigit = document.getElementById("hours");
 let minDigit = document.getElementById("mins");
 let hourIncrimentBtn = document.getElementById("hourIncriment");
@@ -16,16 +17,18 @@ minuteIncrimentBtn.addEventListener('click',incriment);
 minuteDecrimentBtn.addEventListener('click',decriment);
 setAlarm.addEventListener('click',addAlarm);
 
+//Following will keeps updating the clock for current time
 setInterval(showCurrentTime,1000);
 
+//Following will clock
 function showCurrentTime(){
     let date = new Date();
     clock.innerText ='';
     clock.innerText = `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
 }
 
+//Following functions sets the alarms
 function incriment(event){
-
     if(event.target.id == 'hourIncriment' && hourDigit.innerText < 23 ){
         hourDigit.innerText = ++hourDigit.innerText;
     }
@@ -61,7 +64,7 @@ class Alarm {
     }
 }
 
-
+//Fowwing code includes functionality for alarm addition
 function addAlarm(){
     let date = new Date();
     let currentHour = date.getHours();
@@ -116,11 +119,14 @@ setTimeout(function (id){
  initializeAlarmSetter();
 }
 
+
+//Following is initialization code for the clock
 function initializeAlarmSetter(){
     hourDigit.innerText = 00;
     minDigit.innerText = 00;
 }
 
+//Follwoing code will render the list for all alarms
 function renderAlarmList(){
         alarmListToday.innerHTML ='';
         let alarmsList = document.createElement('ul');
@@ -149,10 +155,8 @@ function renderAlarmList(){
     })
 }
 
-
-
-
-
+//Following code will add the handler for any event which happens on click and 
+//intercepts the different target like for delete and snooze
 document.body.addEventListener('click',function(evt){
     if(evt.target.className =='deleteBtn' || evt.target.className == 'fa fa-trash-o'){
     let idArray = evt.composedPath()[1].id.split("_");
