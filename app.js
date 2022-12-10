@@ -101,7 +101,7 @@ function addAlarm(){
         alert ("Please provide time to set alarm");
     }
 }
-if(timeLeft<0)
+if(timeLeft < 0)
 {
     timeLeft = timeLeft * -1;
 }
