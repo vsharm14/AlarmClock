@@ -101,7 +101,10 @@ function addAlarm(){
         alert ("Please provide time to set alarm");
     }
 }
-    console.log("timeLeft:',timeLeft);
+if(timeLeft<0)
+{
+    timeLeft = timeLeft * -1;
+}
 setTimeout(function (id){
     return function(){
      let currentAlarmId = "alarm_" + id;
